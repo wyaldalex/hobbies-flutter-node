@@ -1,0 +1,31 @@
+# npm, yarn files
+node_modules/
+/.idea/
+*.iml
+yarn-error.log
+.env
+.env.release
+.env.production
+.env.prod
+coverage
+#*.sh
+
+# uploads
+public/images/upload
+
+dist
+tmp
+
+logs/
+*.logs
+
+cronLogs/
+service_account_keys.json
+*.serviceAccount.json
+doppler.yaml
+
+.vscode
+.nvmrc
+
+*token*.json
+*.gql
