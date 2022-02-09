@@ -29,3 +29,5 @@ doppler.yaml
 
 *token*.json
 *.gql
+
+nodemon.json
