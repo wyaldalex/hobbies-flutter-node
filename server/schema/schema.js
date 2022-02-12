@@ -1,16 +1,19 @@
 const graphql = require('graphql')
 var _ = require('lodash')
+const User = require("../model/user")
+const Post = require("../model/post")
+const Hobby = require("../model/hobby")
 
 
 //dummy DB
 var userData = [
-    {id: '1', name: 'Bond' , age: 78 , kd: 15},
-    {id: '2', name: 'Bond2' , age: 78 , kd: 1},
-    {id: '3', name: 'Bond3' , age: 78 , kd: 15.2},
-    {id: '4', name: 'Bond4' , age: 78 , kd: 0.4},
-    {id: '55', name: 'Bond5' , age: 78 , kd: 1.33},
-    {id: '6', name: 'Bond6' , age: 78 , kd: 1.3},
-    {id: '7', name: 'Bond7' , age: 78 , kd: 14},
+    {id: '1', name: 'Bond' , age: 78 , profession: "X profression"},
+    {id: '2', name: 'Bond2' , age: 78 , profession: "X profression"},
+    {id: '3', name: 'Bond3' , age: 78 , profession: "X profression"},
+    {id: '4', name: 'Bond4' , age: 78 , profession: "X profression"},
+    {id: '55', name: 'Bond5' , age: 78 , profession: "X profression"},
+    {id: '6', name: 'Bond6' , age: 78 , profession: "X profression"},
+    {id: '7', name: 'Bond7' , age: 78 , profession: "X profression"},
 ] 
 
 var hobbyData = [
@@ -43,7 +46,7 @@ const UserType = new GraphQLObjectType({
         id: {type: GraphQLInt},
         name: {type: GraphQLString},
         age: {type: GraphQLInt},
-        kd: {type: GraphQLFloat},
+        profession: {type: GraphQLString},
 
         posts: {
             type: new GraphQLList(PostType),
@@ -168,16 +171,16 @@ const Mutation = new GraphQLObjectType({
             args: {
                 name: {type: GraphQLString},
                 age: {type: GraphQLInt},
-                kd: {type: GraphQLFloat},
+                profession: {type: GraphQLString},
             },
 
             resolve(parent, args){
-                let user = {
+                let user = User({
                     name: args.name,
                     age: args.age,
-                    kid: args.kd
-                }
-                return user;
+                    profession: args.profession
+                })
+                return user.save();
 
             }
         },
@@ -189,11 +192,11 @@ const Mutation = new GraphQLObjectType({
             },
 
             resolve(parent, args){
-                let post = {
+                let post = Post({
                     comment: args.comment,
                     userId: args.userId,
-                }
-                return post;
+                })
+                return post.save();
 
             }
         },        
@@ -207,12 +210,12 @@ const Mutation = new GraphQLObjectType({
             },
 
             resolve(parent, args){
-                let hobby = {
+                let hobby = Hobby({
                     title: args.title,
                     description: args.description,
                     userId: args.userId,
-                }
-                return hobby;
+                })
+                return hobby.save();
 
             }
         },          
